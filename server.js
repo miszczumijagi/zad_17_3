@@ -4,7 +4,7 @@
 var app = express();
 
 app.get('/', function(req, res) {
-	console.log('Otrzymałem żądanie GET do strony głównej');
+    console.log('Otrzymałem żądanie GET do strony głównej');
     res.send('Hello GET');
 });
 
@@ -67,11 +67,11 @@ var fs = require('fs');
 var bodyParser = require('body-parser');
 
 var app = express();
-var stringifyFile= '';
+var stringifyFile;
 
 app.use(bodyParser.json());
 
-app.get('/getNote', function (req, res) {
+app.get('/getNote', function(req, res) {
     fs.readFile('./test.json', 'utf8', function(err, data) {
     if (err) throw err;
     stringifyFile = data;
@@ -80,17 +80,16 @@ app.get('/getNote', function (req, res) {
 });
 
 app.post('/updateNote/:note', function(req,res) {
-	stringifyFile += req.params.note;
+	stringifyFile = req.params.note;
 	fs.writeFile('./test.json', stringifyFile, function(err) {
-    If (err) throw err;
+        if (err) throw err;
     	console.log('file updated');
+        
 	});
 
 })
 
-var server = app.listen(3000, function() {
-    console.log('Przykładowa aplikacja nasłuchuje na http://localhost:3000');
-});
+var server = app.listen(3000);
 
 
 
